@@ -1,0 +1,37 @@
+name: Pages Build and Deployment
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install Jekyll (and Bundler if needed)
+        run: |
+          gem install jekyll bundler
+          if [ -f Gemfile ]; then bundle install; fi
+
+      - name: Build site (source=root)
+        run: |
+          jekyll build --source . --destination _site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
