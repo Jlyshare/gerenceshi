@@ -1,0 +1,198 @@
+<html>
+<!--当前版本 2.3.03-->
+<!--调整，祝福语的顺序为随机 -->
+<!--新增弹窗“我爱你”在最后并居中弹出 -->
+<!--更改弹窗“我爱你”和“永远爱你”之间的时间差为2秒 -->
+<!--删除了弹窗结束后自动关闭程序这一功能，你就慢慢看吧，哭的稀里哗啦的吧 -->
+<!--修复出现2个“我爱你”弹窗的BUG（现在是凌晨06点16分）-->
+<!--更改弹窗“我爱你”和“永远爱你”之间的时间差为1秒，貌似看起来会顺眼一点 -->
+<!--删除了一些提示词，看起来干净多了 -->
+<!--感觉弹窗“我爱你”和“永远爱你”之间的时间差还是太久，在缩短一点 -->
+<!--调整了弹窗的长度和宽度，看起来更协调 -->
+<!--emmm我也忘记这个版本修改什么了，拉倒吧，我要睡觉了 -->
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多巴胺配色祝福-关心系列</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, 
+                #FF6B6B 0%, 
+                #4ECDC4 25%, 
+                #45B7D1 50%, 
+                #FFA5A5 75%, 
+                #FFE66D 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .popup {
+            position: fixed;
+            width: 180px;
+            min-height: 75px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 3s ease-in-out infinite;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        
+        .blessing {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            line-height: 1.4;
+        }
+        
+        .final-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            color: #FF6B6B;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.8s ease, opacity 0.8s ease;
+            opacity: 0;
+            max-width: 80%;
+        }
+        
+        .completion-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="final-message">永远爱你 ❤️</div>
+
+    <script>
+        const blessings = [
+            "今天过得怎么样","心情还好吗","有什么想和我分享的吗","我一直在你身边","别担心，有我在","想我了随时找我","我会认真听你说","你对我来说很重要","累了就歇一会儿","让我陪着你吧","和你聊天很开心","看到你笑我就安心了","我们一起去散散步吧","记得抬头看看星星","今天有好好吃饭吗","记得按时吃饭","天气变了，记得添衣","早点休息，别熬夜","头疼好点了吗","药按时吃了吗","不舒服一定要告诉我","泡个脚会舒服点","喝点热水暖暖身子","别太累着自己","工作再忙也要休息","我给你倒杯热牛奶吧","盖好被子，别着凉","肩膀酸吗？我帮你揉揉","早餐一定要吃","记得补充维生素","没事的，慢慢来","你已经做得很好了","我相信你的判断","不开心就靠着我","想哭就哭出来吧","我懂你的感受","这不是你的错","你值得所有的美好","在我心里你最棒","压力大就说出来","我会一直支持你","你笑起来最好看","你的努力我都看在眼里","偶尔脆弱也没关系","我会陪你度过难关","路上注意安全","到家了告诉我一声","我来帮你拿东西","想吃什么都陪你","给你带了小点心","这个我来做吧","你休息，我来收拾","给你预约了按摩","周末我们出去放松","我记着你爱吃的菜","给你买了暖宝宝","伞给你，别淋雨","航班信息发我一下","我送你回去吧","需要我马上过来","我尊重你的决定","按照你的节奏来","你的想法很重要","不想说就不说","我明白你的心意","你永远有选择权","我会学着更懂你","谢谢你愿意告诉我","这样的你也很可爱","做你自己就很好","我欣赏你的独立","你的过去我都在意","你的爱好很有趣","和你总有聊不完的话","你让我的世界更完整","我会一直对你好","你的未来有我参与","让我照顾你吧","你是我最珍惜的人","和你在一起很幸福","我想给你一个家","我会为你变得更好","你让我想要守护","我的心永远向你敞开","你是我生命里的光","牵你的手永不放开","岁月漫长，只想与你同行","你的快乐就是我的快乐","让我成为你的依靠","有你的每一天都珍贵","想你","照顾好自己","别太辛苦","等我回来","马上到","交给我","相信我","有我在呢","今天天气真好，要不要出去走走","我给你讲个笑话开心一下","记得多喝水","今天工作顺利吗","有什么需要帮忙的尽管说","别给自己太大压力","你笑起来的样子真好看","我会一直在这里等你","你的感受我都理解","别着急，慢慢来","你已经很棒了","要不要听听轻松的音乐","我给你准备了个小惊喜","今天想我了吗","我会一直惦记着你","你的幸福就是我的幸福","让我为你分担一些","别怕，有我在身边","你的每一个决定我都支持","我会永远相信你","你让我的生活更美好","和你在一起的时光最快乐","我会好好珍惜你","你是我最重要的人","让我抱抱你吧","你的存在让世界更美好","我会永远陪在你身边","你值得被温柔对待","让你为你做点什么","你的快乐最重要","我会一直守护着你","你让我感到幸福","让我为你遮风挡雨","你的梦想我会支持","我会永远爱你","你是我生命中的礼物","让我为你加油打气","你的每一个小进步我都开心","我会永远记得你的好","你让我变得更好","让我为你点亮一盏灯","你的微笑是我的动力","我会永远珍惜我们的时光","你是我心中的阳光","让我为你唱首歌","你的健康我最关心","我会永远站在你这边","你是我最美的遇见","让我为你做顿好吃的","你的安全我最在意","我会永远记得这一刻","你是我最想保护的人"
+        ];
+        
+        const lastBlessing = "我爱你";
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            generateAllPopups();
+        });
+        
+        function generateAllPopups() {
+            const shuffledBlessings = [...blessings];
+            for (let i = shuffledBlessings.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledBlessings[i], shuffledBlessings[j]] = [shuffledBlessings[j], shuffledBlessings[i]];
+            }
+            
+            for (let i = 0; i < shuffledBlessings.length; i++) {
+                setTimeout(() => {
+                    const maxX = window.innerWidth - 200;
+                    const maxY = window.innerHeight - 120;
+                    const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+                    const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+                    
+                    createPopup(shuffledBlessings[i], i, {x: randomX, y: randomY});
+                }, i * 150);
+            }
+            
+            setTimeout(() => {
+                createPopup(lastBlessing, shuffledBlessings.length, {
+                    x: window.innerWidth / 2 - 90,
+                    y: window.innerHeight / 2 - 50
+                });
+                
+                setTimeout(() => {
+                    const finalMessage = document.querySelector('.final-message');
+                    finalMessage.style.transform = 'translate(-50%, -50%) scale(1)';
+                    finalMessage.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        const completionMessage = document.querySelector('.completion-message');
+                        completionMessage.style.opacity = '1';
+                    }, 1000);
+                }, 600);
+            }, shuffledBlessings.length * 150);
+        }
+        
+        function createPopup(blessingText, index, position) {
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            
+            popup.style.left = `${position.x}px`;
+            popup.style.top = `${position.y}px`;
+            
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA5A5', 
+                '#FFE66D', '#FF9A8B', '#A78BFA', '#6EE7B7'
+            ];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            popup.style.background = randomColor;
+            
+            popup.innerHTML = `<div class="blessing">${blessingText}</div>`;
+            
+            popup.style.zIndex = 1000 + index;
+            
+            document.body.appendChild(popup);
+            
+            setTimeout(() => {
+                popup.style.opacity = '1';
+                popup.style.transform = 'scale(1)';
+            }, 10);
+        }
+    </script>
+</body>
+</html>
