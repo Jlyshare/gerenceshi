@@ -1,0 +1,21 @@
+git checkout main
+mkdir -p assets/css
+cat > _config.yml <<'YML'
+title: 我的站点
+theme: jekyll-theme-primer
+# 可按需添加 baseurl / plugins 等
+YML
+
+cat > index.md <<'MD'
+# 欢迎
+这是一个最小的 Jekyll 站点，用于 GitHub Pages 测试。
+MD
+
+cat > assets/css/style.scss <<'SCSS'
+// 最小 SCSS，不引用外部 partial，避免 SCSS 构建时缺文件
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+SCSS
+
+git add _config.yml index.md assets/css/style.scss
+git commit -m "Add minimal Jekyll site files for GitHub Pages (root source)"
+git push origin main
